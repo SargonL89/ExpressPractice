@@ -13,31 +13,30 @@ placas()
 });
 
 
+const routerPlacasVideo = express.Router();
+app.use('/api/placas-de-video', routerPlacasVideo);
+
+
 app.get('/', (req, res) => {
     res.status(200).send('Tienda online del Localhost3000');
 });
 
-app.get('/api/placas-de-video', (req, res) => {
-    res.status(200).send(placasVideo);
+routerPlacasVideo.get('/', (req, res) => {    
+        if (req.query.ordenar === 'precio') {
+            res.status(200).send(placasVideo.sort((a, b) => a.precio - b.precio))
+        } else {
+            res.status(200).send(placasVideo);
+        }
 });
 
-app.get('/api/placas-de-video/NVIDIA', (req, res) =>
+routerPlacasVideo.get('/:fabricante', (req, res) =>
 {
-    const NVIDIA = placasVideo.filter((nombre) => nombre.fabricante === 'NVIDIA');
-    res.status(200).send(NVIDIA);
+    const manufacturer = req.params.fabricante;
+    const filtrado = placasVideo.filter((nombre) => nombre.fabricante === manufacturer);
+
+    return res.status(200).send(filtrado);
 });
 
-app.get('/api/placas-de-video/AMD', (req, res) =>
-{
-    const AMD = placasVideo.filter((nombre) => nombre.fabricante === 'AMD');
-    res.status(200).send(AMD);
-});
-
-app.get('/api/placas-de-video/Asus', (req, res) =>
-{
-    const Asus = placasVideo.filter((nombre) => nombre.fabricante === 'Asus');
-    res.status(200).send(Asus);
-});
 
 const puerto = process.env.port || 3000;
 
