@@ -13,6 +13,7 @@ placas()
 
 
 const routerPlacasVideo = express.Router();
+routerPlacasVideo.use(express.json());
 
 routerPlacasVideo.get('/', (req, res) => {    
     if (req.query.ordenar === 'precio') {
@@ -30,5 +31,10 @@ const filtrado = placasVideo.filter((nombre) => nombre.fabricante === manufactur
 return res.status(200).send(filtrado);
 });
 
+routerPlacasVideo.post('/', (req, res) => {
+    let nuevaPlaca = req.body;
+    placasVideo.push(nuevaPlaca);
+    res.send(placasVideo)
+});
 
 module.exports = routerPlacasVideo

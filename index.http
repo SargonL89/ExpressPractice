@@ -1,0 +1,11 @@
+POST http://localhost:3000/api/placas-de-video HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "016",
+    "fabricante": "NVIDIA",
+    "marca": "Palit",
+    "modelo": "Prototype",
+    "memoria": "0 GB",
+    "precio": "000000"
+}
