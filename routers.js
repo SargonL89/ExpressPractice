@@ -37,4 +37,39 @@ routerPlacasVideo.post('/', (req, res) => {
     res.send(placasVideo)
 });
 
+routerPlacasVideo.put('/:id', (req, res) => {
+    const placaActualizada = req.body;
+    const id = req.params.id;
+
+    const indice = placasVideo.findIndex(placa => placa.id === id);
+
+    if (indice >= 0) {
+        placasVideo[indice] = placaActualizada;
+    }
+    res.send(placasVideo);
+});
+
+routerPlacasVideo.patch('/:id', (req, res) => {
+    const infoActualizada = req.body;
+    const id = req.params.id;
+
+    const indice = placasVideo.findIndex(placa => placa.id === id);
+
+    if (indice >= 0) {
+        const modificada = placasVideo[indice];
+        Object.assign(modificada, infoActualizada);
+    } 
+    res.send(placasVideo);
+});
+
+routerPlacasVideo.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    const indice = placasVideo.findIndex(placas => placas.id === id);
+
+    if (indice >= 0) {
+        placasVideo.splice(indice, 1);
+    }
+    res.send(placasVideo)
+});
+
 module.exports = routerPlacasVideo
